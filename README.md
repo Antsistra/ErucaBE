@@ -2,6 +2,10 @@
 
 The backend side of Eruca Simple Store Management
 
+# DEMO
+Access The Demo on eruca.hadinm.my.id
+Mail hadinurmuhamad8@gmail.com for admin access
+
 ## Pre-requisite
 
 - ### Node.js `v21.6.1`
