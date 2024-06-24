@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+   binaryTargets = ["native", "debian-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password String
+  name      String?
+  role    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model detailLiquid {
+  id       String   @id @default(cuid())
+  name    String
+  taste   String
+  material String
+  nicotine    Int
+  image   String
+  price   Int
+  createdAt DateTime @default(now())
+  stockLiquid stockLiquid?
+  transaction Transaction[]
+}
+
+
+model stockLiquid {
+  id       String   @id @default(cuid())
+  detailLiquidId  String @unique
+  detailLiquid    detailLiquid @relation(fields: [detailLiquidId], references: [id])
+  stock    Int
+  updatedAt DateTime @default(now())
+} 
+
+model Transaction {
+  id String @id @default(cuid())
+  liquidID String
+  detailLiquid detailLiquid @relation(fields: [liquidID], references: [id])
+  qty Int
+  totalPrice Int
+  createdAt DateTime @default(now())
+}
+
+model Wallet{
+  id String @id @default(cuid())
+  income Int
+  totalSales Int
+  updatedAt DateTime @default(now())
+}
